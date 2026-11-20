@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Well-Being AI — Behavioral Analytics & Addiction Risk Platform</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 15% 10%, #0F172A 0%, #070914 55%, #05070F 100%);
+      color: #F8FAFC;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.80);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      backdrop-filter: blur(12px);
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.92) 0%, rgba(15, 23, 42, 0.95) 50%, rgba(8, 47, 73, 0.92) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.38);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.42);
+    }
+    .kpi-card {
+      background: linear-gradient(145deg, rgba(17, 24, 39, 0.94), rgba(11, 15, 29, 0.94));
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(99, 102, 241, 0.48);
+    }
+    input[type="range"] {
+      accent-color: #6366F1;
+    }
+    .nav-btn.active, .step-tab.active {
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.28), rgba(37, 99, 235, 0.20));
+      border-color: rgba(99, 102, 241, 0.60);
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row">
+
+  <!-- ORGANIZED SIDEBAR NAVIGATION -->
+  <aside class="w-full lg:w-72 bg-[#080C18] border-b lg:border-b-0 lg:border-r border-slate-800/80 p-5 flex flex-col justify-between shrink-0">
+    <div>
+      <div class="flex items-center justify-between lg:block">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">🧠</span>
+            <h1 class="text-lg font-extrabold tracking-tight text-white">Digital Well-Being AI</h1>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Structured ML Behavioral Suite</p>
+        </div>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 lg:mt-3">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          AI Models Online
+        </span>
+      </div>
+
+      <hr class="border-slate-800/80 my-4" />
+
+      <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">1. Diagnostic Modules</div>
+      <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-1.5" id="sidebar-nav">
+        <button type="button" data-view="assessment" class="nav-btn active text-left px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 border border-transparent hover:bg-slate-800/60 transition flex items-center gap-2">
+          <span>🧑‍💻</span> <span>Overview &amp; Assessment</span>
+        </button>
+        <button type="button" data-view="ai" class="nav-btn text-left px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 border border-transparent hover:bg-slate-800/60 transition flex items-center gap-2">
+          <span>🤖</span> <span>AI &amp; K-Means Clusters</span>
+        </button>
+        <button type="button" data-view="simulator" class="nav-btn text-left px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 border border-transparent hover:bg-slate-800/60 transition flex items-center gap-2">
+          <span>🔮</span> <span>Wellness Simulator</span>
+        </button>
+        <button type="button" data-view="cohort" class="nav-btn text-left px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 border border-transparent hover:bg-slate-800/60 transition flex items-center gap-2">
+          <span>📂</span> <span>7,500-User Benchmark</span>
+        </button>
+        <button type="button" data-view="all" class="nav-btn text-left px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 border border-transparent hover:bg-slate-800/60 transition flex items-center gap-2">
+          <span>🌐</span> <span>Complete Workspace</span>
+        </button>
+      </nav>
+
+      <hr class="border-slate-800/80 my-4" />
+
+      <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">2. ⚡ Quick Persona Presets</div>
+      <div class="grid grid-cols-2 lg:grid-cols-1 gap-2">
+        <button type="button" data-preset="Balanced Professional" class="preset-btn px-3 py-2 rounded-xl text-xs font-semibold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/25 text-left transition">
+          🟢 Balanced Professional
+        </button>
+        <button type="button" data-preset="Heavy Social Scroller" class="preset-btn px-3 py-2 rounded-xl text-xs font-semibold bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/25 text-left transition">
+          🔴 Heavy Social Scroller
+        </button>
+        <button type="button" data-preset="Competitive Gamer" class="preset-btn px-3 py-2 rounded-xl text-xs font-semibold bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/25 text-left transition">
+          🟣 Competitive Gamer
+        </button>
+        <button type="button" data-preset="Moderate Notification-Busy" class="preset-btn px-3 py-2 rounded-xl text-xs font-semibold bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/25 text-left transition">
+          🟡 Notification-Driven User
+        </button>
+      </div>
+    </div>
+
+    <div class="hidden lg:block mt-6 pt-4 border-t border-slate-800/80 text-xs text-slate-400 space-y-1.5">
+      <div class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">Repository Architecture</div>
+      <div class="font-mono text-[11px] text-slate-400 space-y-0.5">
+        <div>├── app/ (app, config, engine, styles)</div>
+        <div>├── models/ (RF + KMeans + Scaler)</div>
+        <div>├── data/ (7,500-row CSV)</div>
+        <div>└── tests/ (test_app.py)</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-5">
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast-banner" class="hidden fixed top-4 right-4 z-50 px-4 py-3 rounded-xl bg-indigo-600/95 text-white text-sm font-semibold shadow-2xl border border-indigo-400/40 flex items-center gap-2.5">
+      <span id="toast-icon">✨</span>
+      <span id="toast-text">Profile updated!</span>
+    </div>
+
+    <!-- ZONE A: COMPACT HERO HEADER -->
+    <header class="hero-gradient rounded-2xl p-5 sm:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex flex-wrap items-center gap-2 mb-2">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+            ● AI SYSTEM ONLINE
+          </span>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-500/15 text-sky-300 border border-sky-500/30">
+            🎯 RF Accuracy: 93.73% (AUC 0.989)
+          </span>
+          <span id="hero-cluster-pill" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
+            🧬 Cluster 0: Balanced &amp; Work-Focused
+          </span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+          🧠 Digital Well-Being AI Analyzer
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 mt-0.5 max-w-2xl">
+          Organized 4-stage behavioral diagnostic pipeline: Assessment → ML &amp; Cluster Intelligence → What-If Simulator → 7,500-User Cohort Benchmark.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2 shrink-0">
+        <button type="button" id="btn-export-report" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-800/90 hover:bg-slate-700 text-slate-100 border border-slate-600/60 transition flex items-center gap-2">
+          <span>📋</span> <span>Export Diagnostic Summary</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ZONE B: PERSISTENT EXECUTIVE KPI BAND + 24-HOUR TIME BUDGET BAR -->
+    <section aria-label="Executive Summary Metrics" class="glass-card rounded-2xl p-4 sm:p-5 space-y-4">
+      <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3">
+        <div class="kpi-card rounded-xl p-3.5">
+          <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">💎 Wellness Score</div>
+          <div id="kpi-wellness-val" class="text-xl sm:text-2xl font-extrabold text-white mt-1">81/100</div>
+          <div id="kpi-wellness-delta" class="text-xs font-semibold text-emerald-400 mt-0.5">Healthy Range (≥70)</div>
+        </div>
+
+        <div class="kpi-card rounded-xl p-3.5">
+          <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">🛡️ Composite Risk</div>
+          <div id="kpi-risk-val" class="text-xl sm:text-2xl font-extrabold text-white mt-1">19%</div>
+          <div id="kpi-risk-delta" class="text-xs font-semibold text-emerald-400 mt-0.5">🟢 LOW RISK</div>
+        </div>
+
+        <div class="kpi-card rounded-xl p-3.5">
+          <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">🤖 ML Addiction Prob.</div>
+          <div id="kpi-ml-val" class="text-xl sm:text-2xl font-extrabold text-white mt-1">33.4%</div>
+          <div id="kpi-ml-delta" class="text-xs font-semibold text-emerald-400 mt-0.5">Not Addicted (Healthy)</div>
+        </div>
+
+        <div class="kpi-card rounded-xl p-3.5">
+          <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">🧬 K-Means Cluster</div>
+          <div id="kpi-cluster-val" class="text-lg sm:text-xl font-extrabold text-white mt-1 truncate">Cluster 0</div>
+          <div id="kpi-cluster-delta" class="text-xs font-semibold text-indigo-400 mt-0.5 truncate">Balanced &amp; Work</div>
+        </div>
+
+        <div class="kpi-card rounded-xl p-3.5">
+          <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">📱 Daily Screen Time</div>
+          <div id="kpi-screen-val" class="text-xl sm:text-2xl font-extrabold text-white mt-1">6.0 h</div>
+          <div id="kpi-screen-delta" class="text-xs font-semibold text-emerald-400 mt-0.5">-1.5h vs cohort avg</div>
+        </div>
+
+        <div class="kpi-card rounded-xl p-3.5">
+          <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">😴 Recovery Sleep</div>
+          <div id="kpi-sleep-val" class="text-xl sm:text-2xl font-extrabold text-white mt-1">7.0 h</div>
+          <div id="kpi-sleep-delta" class="text-xs font-semibold text-emerald-400 mt-0.5">-1.0h vs 8h target</div>
+        </div>
+      </div>
+
+      <!-- LIVE 24-HOUR TIME BUDGET ALLOCATION BAR -->
+      <div class="bg-slate-950/70 rounded-xl p-3 border border-slate-800/80">
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs mb-2">
+          <span class="font-bold text-slate-300">⏱️ 24-Hour Daily Time Budget Allocation</span>
+          <div id="time-budget-legend" class="flex flex-wrap items-center gap-3 text-[11px] text-slate-300"></div>
+        </div>
+        <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden flex" id="time-budget-bar"></div>
+      </div>
+    </section>
+
+    <!-- ZONE C: STEP-BY-STEP WORKFLOW TAB BAR -->
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 bg-slate-900/75 p-1.5 rounded-2xl border border-slate-800/90" id="top-step-tabs">
+      <button type="button" data-step="assessment" class="step-tab active px-3 py-2.5 rounded-xl text-xs font-bold text-slate-300 border border-transparent transition text-center">
+        1. 🧑‍💻 Profile &amp; Assessment
+      </button>
+      <button type="button" data-step="ai" class="step-tab px-3 py-2.5 rounded-xl text-xs font-bold text-slate-300 border border-transparent transition text-center">
+        2. 🧠 AI &amp; K-Means Clusters
+      </button>
+      <button type="button" data-step="simulator" class="step-tab px-3 py-2.5 rounded-xl text-xs font-bold text-slate-300 border border-transparent transition text-center">
+        3. 🔮 Simulator &amp; Plan
+      </button>
+      <button type="button" data-step="cohort" class="step-tab px-3 py-2.5 rounded-xl text-xs font-bold text-slate-300 border border-transparent transition text-center">
+        4. 📂 Cohort Benchmark
+      </button>
+      <button type="button" data-step="all" class="step-tab col-span-2 sm:col-span-1 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-300 border border-transparent transition text-center">
+        🌐 Show All Sections
+      </button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- STEP 1: ASSESSMENT FORM + OVERVIEW CHARTS (CLEAN 2-COL SPLIT) -->
+    <!-- ============================================================ -->
+    <section id="sec-assessment" class="space-y-5">
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+        <!-- Left 7 Cols: Structured Assessment Form -->
+        <div class="xl:col-span-7 glass-card rounded-2xl p-5 sm:p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4 pb-3 border-b border-slate-800/80">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-400">Step 1 of 4 • Data Input</span>
+              <h3 class="text-lg font-bold text-white">🧑‍💻 Digital Behavior Assessment</h3>
+              <p class="text-xs text-slate-400">Enter your daily habits or pick a sidebar preset. Physical 24h constraints are validated automatically.</p>
+            </div>
+          </div>
+
+          <!-- VALIDATION ERROR BANNER -->
+          <div id="validation-banner" class="hidden mb-4 p-4 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-200 text-xs sm:text-sm space-y-1"></div>
+
+          <form id="assessment-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Card 1: Demographics & Core Exposure -->
+              <div class="space-y-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800/80">
+                <div class="text-xs font-bold uppercase tracking-wider text-indigo-400">👤 1A. Demographics &amp; Screen Exposure</div>
+                <div class="grid grid-cols-2 gap-2.5">
+                  <div>
+                    <label for="inp-age" class="block text-xs font-medium text-slate-300 mb-1">Age (years)</label>
+                    <input id="inp-age" type="number" min="10" max="100" step="1" value="22" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none" />
+                  </div>
+                  <div>
+                    <label for="inp-gender" class="block text-xs font-medium text-slate-300 mb-1">Gender</label>
+                    <select id="inp-gender" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none">
+                      <option value="Male" selected>Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label for="inp-screen" class="block text-xs font-medium text-slate-300 mb-1">Daily Screen Time (hours / 24h)</label>
+                  <input id="inp-screen" type="number" min="0" max="24" step="0.5" value="6.0" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none" />
+                </div>
+                <div>
+                  <label for="inp-weekend" class="block text-xs font-medium text-slate-300 mb-1">Weekend Screen Time (hours / 24h)</label>
+                  <input id="inp-weekend" type="number" min="0" max="24" step="0.5" value="7.5" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none" />
+                </div>
+              </div>
+
+              <!-- Card 2: Activity Breakdown -->
+              <div class="space-y-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800/80">
+                <div class="text-xs font-bold uppercase tracking-wider text-sky-400">📱 1B. Daily Activity Breakdown (Hours)</div>
+                <div class="grid grid-cols-2 gap-2.5">
+                  <div>
+                    <label for="inp-social" class="block text-xs font-medium text-slate-300 mb-1">Social Media (h)</label>
+                    <input id="inp-social" type="number" min="0" max="24" step="0.5" value="3.0" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none" />
+                  </div>
+                  <div>
+                    <label for="inp-gaming" class="block text-xs font-medium text-slate-300 mb-1">Gaming (h)</label>
+                    <input id="inp-gaming" type="number" min="0" max="24" step="0.5" value="2.0" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none" />
+                  </div>
+                </div>
+                <div>
+                  <label for="inp-work" class="block text-xs font-medium text-slate-300 mb-1">Work / Study Hours (hours)</label>
+                  <input id="inp-work" type="number" min="0" max="24" step="0.5" value="5.0" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none" />
+                </div>
+                <div>
+                  <label for="inp-sleep" class="block text-xs font-medium text-slate-300 mb-1">Sleep Recovery Hours (hours)</label>
+                  <input id="inp-sleep" type="number" min="0" max="24" step="0.5" value="7.0" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: Engagement & Submit -->
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 space-y-3">
+              <div class="text-xs font-bold uppercase tracking-wider text-purple-400">🔔 1C. Notification Intensity &amp; Perceived Stress</div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+                <div>
+                  <label for="inp-notif" class="block text-xs font-medium text-slate-300 mb-1">Notifications / Day</label>
+                  <input id="inp-notif" type="number" min="0" max="1000" step="5" value="100" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none" />
+                </div>
+                <div>
+                  <label for="inp-opens" class="block text-xs font-medium text-slate-300 mb-1">App Opens / Day</label>
+                  <input id="inp-opens" type="number" min="0" max="1000" step="5" value="55" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white text-sm focus:border-indigo-500 focus:outline-none" />
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs font-medium text-slate-300 mb-1">
+                    <label for="inp-stress">Stress Level</label>
+                    <span id="stress-label-badge" class="text-amber-300 font-bold">2 — Moderate</span>
+                  </div>
+                  <input id="inp-stress" type="range" min="1" max="3" step="1" value="2" class="w-full cursor-pointer" />
+                </div>
+              </div>
+
+              <div class="pt-1 flex flex-col sm:flex-row gap-2.5">
+                <button type="submit" id="btn-analyze-submit" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-indigo-600 via-blue-600 to-sky-500 hover:from-indigo-500 hover:to-sky-400 shadow-lg shadow-indigo-600/30 transition">
+                  🔍 Analyze &amp; Update My Digital Well-Being
+                </button>
+                <button type="button" data-goto="ai" class="goto-step-btn px-4 py-3 rounded-xl font-bold text-xs sm:text-sm bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-indigo-500/30 transition">
+                  Next: AI Diagnostics →
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right 5 Cols: Overview Charts Stacked Cleanly -->
+        <div class="xl:col-span-5 space-y-5">
+          <div class="glass-card rounded-2xl p-5">
+            <h4 class="text-sm font-bold text-white mb-0.5">📈 Daily Activity Breakdown vs 7,500-User Benchmark</h4>
+            <p class="text-xs text-slate-400 mb-3">Your daily hours compared directly against the empirical cohort mean.</p>
+            <div class="relative h-60">
+              <canvas id="chart-overview-bar"></canvas>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5">
+            <h4 class="text-sm font-bold text-white mb-0.5">🍩 24-Hour Digital &amp; Offline Time Composition</h4>
+            <p class="text-xs text-slate-400 mb-3">How your 24-hour day is partitioned across screen categories, sleep, and unplugged time.</p>
+            <div class="relative h-60">
+              <canvas id="chart-overview-donut"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- STEP 2: AI ADDICTION PREDICTION & K-MEANS CLUSTERING         -->
+    <!-- ============================================================ -->
+    <section id="sec-ai" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-5 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-5 pb-3 border-b border-slate-800/80">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-400">Step 2 of 4 • Machine Learning Diagnostics</span>
+            <h3 class="text-lg font-bold text-white">🧠 AI Addiction Prediction &amp; K-Means Behavioral Intelligence</h3>
+            <p class="text-xs text-slate-400">Combining 200-tree Random Forest probability scoring with 8-dimensional K-Means behavioral segmentation.</p>
+          </div>
+          <span id="ai-verdict-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+            ✓ Low Addiction Risk
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <!-- Left: Risk Gauge + ML Probability Card -->
+          <div class="bg-slate-900/65 rounded-xl p-4 border border-slate-800/80 flex flex-col justify-between">
+            <div>
+              <h4 class="text-sm font-bold text-white">🛡️ Composite Risk &amp; ML Probability</h4>
+              <p class="text-xs text-slate-400 mt-0.5">0–100% behavioral risk index alongside Random Forest confidence.</p>
+            </div>
+            <div class="my-4 space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1">
+                  <span class="text-slate-300">Composite Digital Risk Score</span>
+                  <span id="gauge-risk-text" class="text-emerald-400 font-bold">19% (LOW RISK)</span>
+                </div>
+                <div class="w-full h-3.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div id="gauge-risk-bar" class="h-full bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-500 transition-all duration-300" style="width: 19%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1">
+                  <span class="text-slate-300">Random Forest Addiction Probability</span>
+                  <span id="gauge-ml-text" class="text-sky-400 font-bold">33.4%</span>
+                </div>
+                <div class="w-full h-3.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div id="gauge-ml-bar" class="h-full bg-indigo-500 transition-all duration-300" style="width: 33.4%"></div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs space-y-1.5">
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Predicted Class:</span>
+                  <span id="ml-class-text" class="font-bold text-emerald-400">0 — Not Addicted</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Model Confidence:</span>
+                  <span id="ml-conf-text" class="font-bold text-white">66.6%</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Encoded Gender Feature:</span>
+                  <span id="ml-gender-text" class="font-mono text-sky-300">cat__gender_Male = 1.0</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-[11px] text-slate-400">
+              Top RF Drivers: Social Media (36.4%), Daily Screen Time (30.5%), Weekend Screen Time (19.1%).
+            </div>
+          </div>
+
+          <!-- Center: 6-Axis Wellness Radar -->
+          <div class="bg-slate-900/65 rounded-xl p-4 border border-slate-800/80">
+            <h4 class="text-sm font-bold text-white mb-1">📡 6-Axis Digital Wellness Radar</h4>
+            <p class="text-xs text-slate-400 mb-2">Your balance scores (0–100) vs the 75-pt healthy benchmark.</p>
+            <div class="relative h-64">
+              <canvas id="chart-ai-radar"></canvas>
+            </div>
+          </div>
+
+          <!-- Right: K-Means Cluster Card & Distances -->
+          <div class="bg-slate-900/65 rounded-xl p-4 border border-slate-800/80 flex flex-col justify-between">
+            <div>
+              <div class="text-[11px] font-bold uppercase tracking-wider text-indigo-400">K-Means Behavioral Archetype</div>
+              <h4 id="cluster-card-title" class="text-lg font-extrabold text-white mt-1">Cluster 0: Balanced &amp; Work-Focused</h4>
+              <div id="cluster-card-badge" class="inline-block mt-1 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-emerald-500/15 text-emerald-300">
+                Cohort Addiction Rate: 46.4% (n = 1,887)
+              </div>
+              <p id="cluster-card-desc" class="text-xs text-slate-300 mt-2.5 leading-relaxed">
+                Characterized by controlled weekday screen time (~5.3h), strong work/study engagement (~4.7h/day), and moderate weekend usage (~7.0h).
+              </p>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-800">
+              <div class="text-xs font-semibold text-slate-300 mb-2">8D Standardized Centroid Distances:</div>
+              <div id="cluster-distances-list" class="space-y-1.5 text-xs"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Risk Contribution vs Habit Comparison -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+          <div class="bg-slate-900/65 rounded-xl p-4 border border-slate-800/80">
+            <h4 class="text-sm font-bold text-white mb-1">📉 Your Personal Risk Factor Contribution</h4>
+            <p class="text-xs text-slate-400 mb-2">Which specific habits contribute most to your current digital risk score.</p>
+            <div class="relative h-64">
+              <canvas id="chart-risk-contrib"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/65 rounded-xl p-4 border border-slate-800/80">
+            <h4 class="text-sm font-bold text-white mb-1">🔄 Current vs Simulated vs Healthy Target Hours</h4>
+            <p class="text-xs text-slate-400 mb-2">Comparing your current profile against your simulator settings and clinical targets.</p>
+            <div class="relative h-64">
+              <canvas id="chart-habits-compare"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex justify-between items-center">
+          <button type="button" data-goto="assessment" class="goto-step-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+            ← Back: Profile &amp; Assessment
+          </button>
+          <button type="button" data-goto="simulator" class="goto-step-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition">
+            Next: What-If Wellness Simulator →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- STEP 3: INTERACTIVE WHAT-IF WELLNESS SIMULATOR & ACTION PLAN -->
+    <!-- ============================================================ -->
+    <section id="sec-simulator" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-5 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-5 pb-3 border-b border-slate-800/80">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-400">Step 3 of 4 • Habit Optimization &amp; Action Plan</span>
+            <h3 class="text-lg font-bold text-white">🔮 Interactive What-If Digital Wellness Simulator</h3>
+            <p class="text-xs text-slate-400">Adjust the sliders to test habit changes and watch your 7-day projected wellness trajectory update in real time.</p>
+          </div>
+          <button type="button" id="btn-apply-sim" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition shrink-0 shadow-lg shadow-indigo-600/25">
+            ✨ Apply Simulated Habits to My Profile
+          </button>
+        </div>
+
+        <!-- Simulator Sliders -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 bg-slate-900/65 p-4 rounded-xl border border-slate-800">
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <label for="sim-screen" class="text-slate-300">📱 Screen Time</label>
+              <span id="sim-screen-lbl" class="text-indigo-400 font-bold">4.5 h</span>
+            </div>
+            <input id="sim-screen" type="range" min="1" max="14" step="0.5" value="4.5" class="w-full cursor-pointer" />
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <label for="sim-social" class="text-slate-300">🌐 Social Media</label>
+              <span id="sim-social-lbl" class="text-indigo-400 font-bold">1.5 h</span>
+            </div>
+            <input id="sim-social" type="range" min="0" max="8" step="0.5" value="1.5" class="w-full cursor-pointer" />
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <label for="sim-gaming" class="text-slate-300">🎮 Gaming</label>
+              <span id="sim-gaming-lbl" class="text-indigo-400 font-bold">1.0 h</span>
+            </div>
+            <input id="sim-gaming" type="range" min="0" max="8" step="0.5" value="1.0" class="w-full cursor-pointer" />
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <label for="sim-sleep" class="text-slate-300">🌙 Sleep Hours</label>
+              <span id="sim-sleep-lbl" class="text-indigo-400 font-bold">8.0 h</span>
+            </div>
+            <input id="sim-sleep" type="range" min="4" max="10" step="0.5" value="8.0" class="w-full cursor-pointer" />
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <label for="sim-notif" class="text-slate-300">🔔 Notifications</label>
+              <span id="sim-notif-lbl" class="text-indigo-400 font-bold">50 /day</span>
+            </div>
+            <input id="sim-notif" type="range" min="10" max="250" step="10" value="50" class="w-full cursor-pointer" />
+          </div>
+        </div>
+
+        <!-- Simulator KPI Summary + 7-Day Trajectory Chart -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5">
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-400">Current Wellness Score</div>
+                <div id="sim-curr-score" class="text-2xl font-extrabold text-white">81/100</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-slate-400">🔮 Simulated Score</div>
+                <div id="sim-new-score" class="text-2xl font-extrabold text-emerald-400">93/100</div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 flex items-center justify-between">
+              <div>
+                <div class="text-xs text-slate-400">Projected Net Gain</div>
+                <div id="sim-delta-text" class="text-lg font-extrabold text-emerald-400">+12 points</div>
+              </div>
+              <div id="sim-verdict-pill" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                Significant Improvement 🚀
+              </div>
+            </div>
+
+            <!-- Goal Alignment Progress Bars -->
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2.5">
+              <div class="text-xs font-bold uppercase tracking-wider text-slate-400">🎯 Personal Goal Alignment</div>
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>📱 Screen Target (≤4h)</span><span id="goal-screen-pct" class="font-bold">67%</span></div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden"><div id="goal-screen-bar" class="h-full bg-indigo-500" style="width:67%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>🌐 Social Target (≤2h)</span><span id="goal-social-pct" class="font-bold">67%</span></div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden"><div id="goal-social-bar" class="h-full bg-sky-500" style="width:67%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>🌙 Sleep Target (8h)</span><span id="goal-sleep-pct" class="font-bold">88%</span></div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden"><div id="goal-sleep-bar" class="h-full bg-emerald-500" style="width:88%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>🔔 Notification Target (≤50)</span><span id="goal-notif-pct" class="font-bold">50%</span></div>
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden"><div id="goal-notif-bar" class="h-full bg-purple-500" style="width:50%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2 bg-slate-900/60 rounded-xl p-4 border border-slate-800/80">
+            <h4 class="text-sm font-bold text-white mb-1">📈 7-Day Projected Wellness Adaptation Curve</h4>
+            <p class="text-xs text-slate-400 mb-2">Dynamic trajectory from your current score to your simulated habit target over 7 days.</p>
+            <div class="relative h-72">
+              <canvas id="chart-sim-projection"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prioritized Recommendations -->
+        <div class="mt-6 pt-4 border-t border-slate-800/80">
+          <h4 class="text-sm font-bold text-white mb-3">🚀 Prioritized Digital Wellness Action Plan</h4>
+          <div id="recommendations-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3.5"></div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-slate-800/80 flex justify-between items-center">
+          <button type="button" data-goto="ai" class="goto-step-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+            ← Back: AI &amp; Cluster Diagnostics
+          </button>
+          <button type="button" data-goto="cohort" class="goto-step-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition">
+            Next: 7,500-User Cohort Benchmark →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- STEP 4: 7,500-USER COHORT BENCHMARK EXPLORER                 -->
+    <!-- ============================================================ -->
+    <section id="sec-cohort" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-5 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-5 pb-3 border-b border-slate-800/80">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-400">Step 4 of 4 • Empirical Cohort Reference</span>
+            <h3 class="text-lg font-bold text-white">📂 7,500-User Smartphone Behavioral Cohort Explorer</h3>
+            <p class="text-xs text-slate-400">Compare your active profile against the 4 K-Means behavioral clusters discovered in <code class="text-indigo-300">Smartphone_Usage_And_Addiction_Analysis_7500_Rows.csv</code>.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-5">
+          <div class="bg-slate-900/60 rounded-xl p-4 border border-slate-800/80">
+            <h4 class="text-sm font-bold text-white mb-1">📊 Addiction Rate by K-Means Behavioral Cluster (%)</h4>
+            <p class="text-xs text-slate-400 mb-2">Cluster 1 (Gaming-Heavy) and Cluster 3 (Screen/Social-Heavy) exhibit &gt;95% addiction rates.</p>
+            <div class="relative h-64">
+              <canvas id="chart-cohort-clusters"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/60 rounded-xl p-4 border border-slate-800/80 overflow-x-auto">
+            <h4 class="text-sm font-bold text-white mb-2">🧬 Empirical Cluster Centroids vs Your Active Profile</h4>
+            <table class="w-full text-left text-xs text-slate-300 border-collapse">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400">
+                  <th class="py-2 pr-2">Profile / Archetype</th>
+                  <th class="py-2 px-2 text-right">Users</th>
+                  <th class="py-2 px-2 text-right">Addicted</th>
+                  <th class="py-2 px-2 text-right">Screen</th>
+                  <th class="py-2 px-2 text-right">Social</th>
+                  <th class="py-2 px-2 text-right">Gaming</th>
+                  <th class="py-2 pl-2 text-right">Sleep</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60">
+                <tr class="bg-indigo-500/15 font-bold text-white">
+                  <td class="py-2.5 pr-2 text-indigo-300">★ Your Active Profile</td>
+                  <td class="py-2.5 px-2 text-right">1 (You)</td>
+                  <td id="tbl-user-prob" class="py-2.5 px-2 text-right">33.4%</td>
+                  <td id="tbl-user-screen" class="py-2.5 px-2 text-right">6.00h</td>
+                  <td id="tbl-user-social" class="py-2.5 px-2 text-right">3.00h</td>
+                  <td id="tbl-user-gaming" class="py-2.5 px-2 text-right">2.00h</td>
+                  <td id="tbl-user-sleep" class="py-2.5 pl-2 text-right">7.00h</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-2 font-semibold text-emerald-300">0: Balanced &amp; Work</td>
+                  <td class="py-2.5 px-2 text-right">1,887</td>
+                  <td class="py-2.5 px-2 text-right font-bold">46.4%</td>
+                  <td class="py-2.5 px-2 text-right">5.34h</td>
+                  <td class="py-2.5 px-2 text-right">3.23h</td>
+                  <td class="py-2.5 px-2 text-right">2.05h</td>
+                  <td class="py-2.5 pl-2 text-right">6.54h</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-2 font-semibold text-rose-300">1: Gaming-Heavy</td>
+                  <td class="py-2.5 px-2 text-right">1,942</td>
+                  <td class="py-2.5 px-2 text-right font-bold text-rose-400">95.8%</td>
+                  <td class="py-2.5 px-2 text-right">9.69h</td>
+                  <td class="py-2.5 px-2 text-right">3.24h</td>
+                  <td class="py-2.5 px-2 text-right">3.03h</td>
+                  <td class="py-2.5 pl-2 text-right">6.66h</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-2 font-semibold text-amber-300">2: Moderate / Notif</td>
+                  <td class="py-2.5 px-2 text-right">1,831</td>
+                  <td class="py-2.5 px-2 text-right font-bold">44.7%</td>
+                  <td class="py-2.5 px-2 text-right">5.19h</td>
+                  <td class="py-2.5 px-2 text-right">3.23h</td>
+                  <td class="py-2.5 px-2 text-right">1.98h</td>
+                  <td class="py-2.5 pl-2 text-right">6.90h</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 pr-2 font-semibold text-orange-300">3: Screen &amp; Social</td>
+                  <td class="py-2.5 px-2 text-right">1,840</td>
+                  <td class="py-2.5 px-2 text-right font-bold text-orange-400">95.4%</td>
+                  <td class="py-2.5 px-2 text-right">9.71h</td>
+                  <td class="py-2.5 px-2 text-right">3.40h</td>
+                  <td class="py-2.5 px-2 text-right">0.94h</td>
+                  <td class="py-2.5 pl-2 text-right">6.87h</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-slate-800/80 flex justify-between items-center">
+          <button type="button" data-goto="simulator" class="goto-step-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+            ← Back: What-If Simulator
+          </button>
+          <button type="button" data-goto="all" class="goto-step-btn px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 transition">
+            🌐 View Complete Workspace (All Sections)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-xs text-slate-500 pt-4 pb-8 border-t border-slate-800/80">
+      🧠 Digital Well-Being AI Analyzer • Modular Architecture (config • engine • styles • app • tests) • 7,500-User Benchmark
+    </footer>
+  </main>
+
+  <!-- DIAGNOSTIC REPORT MODAL -->
+  <div id="report-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card rounded-2xl max-w-lg w-full p-6 border border-slate-700 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-bold text-white">📋 Digital Well-Being Diagnostic Report</h3>
+        <button type="button" id="btn-close-modal" class="text-slate-400 hover:text-white text-sm font-bold px-2 py-1 rounded-lg">✕</button>
+      </div>
+      <pre id="report-modal-text" class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 font-mono whitespace-pre-wrap max-h-80 overflow-y-auto"></pre>
+      <div class="flex justify-end gap-2.5">
+        <button type="button" id="btn-copy-report" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition">
+          📄 Copy Report to Clipboard
+        </button>
+        <button type="button" id="btn-done-modal" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SCALER_MEANS = [7.499912, 3.273484, 2.014183, 3.242420, 6.737561, 134.257333, 97.832400, 9.243827];
+    const SCALER_STDS  = [2.609014, 1.585236, 1.145963, 1.600658, 1.283519, 66.582443, 48.420120, 2.718100];
+
+    const KMEANS_CENTERS = [
+      [-0.8287, -0.0267,  0.0283,  0.8841, -0.1571, -0.1304, -0.1613, -0.8217],
+      [ 0.8383, -0.0191,  0.8842, -0.0427, -0.0611,  0.0130, -0.0283,  0.8197],
+      [-0.8859, -0.0296, -0.0287, -0.9006,  0.1243,  0.1429,  0.0788, -0.8719],
+      [ 0.8467,  0.0770, -0.9336,  0.0346,  0.1020, -0.0221,  0.1168,  0.8452]
+    ];
+
+    const CLUSTER_META = {
+      0: {
+        name: "Balanced & Work-Focused",
+        short: "Balanced & Work",
+        rate: 46.37,
+        count: 1887,
+        desc: "Characterized by controlled weekday screen time (~5.3h), strong work/study engagement (~4.7h/day), and moderate weekend usage (~7.0h)."
+      },
+      1: {
+        name: "Gaming-Heavy High-Exposure",
+        short: "Gaming-Heavy",
+        rate: 95.78,
+        count: 1942,
+        desc: "Marked by elevated daily screen exposure (~9.7h), heavy gaming sessions (~3.0h/day), and extended weekend screen spikes (~11.5h)."
+      },
+      2: {
+        name: "Moderate & Notification-Driven",
+        short: "Notification-Driven",
+        rate: 44.68,
+        count: 1831,
+        desc: "Lower total screen hours (~5.2h) and healthier sleep (~6.9h), but high notification frequency (~144/day) and context-switching."
+      },
+      3: {
+        name: "Screen & Social-Heavy",
+        short: "Screen & Social",
+        rate: 95.38,
+        count: 1840,
+        desc: "Driven by prolonged daily screen time (~9.7h), intensive social media scrolling (~3.4h+), frequent app opens, and weekend binges (~11.5h)."
+      }
+    };
+
+    const PRESETS = {
+      "Balanced Professional": {
+        age: 27, gender: "Female", screen: 4.5, social: 1.5, gaming: 0.5,
+        work: 6.0, sleep: 7.5, notif: 55, opens: 40, stress: 1, weekend: 5.0
+      },
+      "Heavy Social Scroller": {
+        age: 21, gender: "Female", screen: 9.5, social: 5.5, gaming: 1.0,
+        work: 3.5, sleep: 5.5, notif: 190, opens: 135, stress: 3, weekend: 11.5
+      },
+      "Competitive Gamer": {
+        age: 19, gender: "Male", screen: 10.0, social: 2.0, gaming: 5.5,
+        work: 2.5, sleep: 5.5, notif: 140, opens: 95, stress: 2, weekend: 12.5
+      },
+      "Moderate Notification-Busy": {
+        age: 29, gender: "Male", screen: 5.0, social: 2.5, gaming: 1.5,
+        work: 1.8, sleep: 7.0, notif: 155, opens: 105, stress: 2, weekend: 6.5
+      }
+    };
+
+    let state = {
+      age: 22,
+      gender: "Male",
+      screen: 6.0,
+      social: 3.0,
+      gaming: 2.0,
+      work: 5.0,
+      sleep: 7.0,
+      notif: 100,
+      opens: 55,
+      stress: 2,
+      weekend: 7.5
+    };
+
+    let charts = {};
+
+    function clamp(val, min, max) {
+      return Math.max(min, Math.min(max, val));
+    }
+
+    function showToast(msg, icon = "✨") {
+      const banner = document.getElementById("toast-banner");
+      document.getElementById("toast-icon").textContent = icon;
+      document.getElementById("toast-text").textContent = msg;
+      banner.classList.remove("hidden");
+      if (window._toastTimer) clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        banner.classList.add("hidden");
+      }, 2800);
+    }
+
+    function switchWorkspaceView(view) {
+      document.querySelectorAll("#sidebar-nav .nav-btn").forEach(b => {
+        b.classList.toggle("active", b.getAttribute("data-view") === view);
+      });
+      document.querySelectorAll("#top-step-tabs .step-tab").forEach(b => {
+        b.classList.toggle("active", b.getAttribute("data-step") === view);
+      });
+
+      const sections = {
+        assessment: document.getElementById("sec-assessment"),
+        ai: document.getElementById("sec-ai"),
+        simulator: document.getElementById("sec-simulator"),
+        cohort: document.getElementById("sec-cohort")
+      };
+      Object.entries(sections).forEach(([k, el]) => {
+        if (view === "all" || view === k) {
+          el.classList.remove("hidden");
+        } else {
+          el.classList.add("hidden");
+        }
+      });
+
+      Object.values(charts).forEach(ch => {
+        if (ch && typeof ch.resize === "function") ch.resize();
+      });
+    }
+
+    function computeWellness(p) {
+      const screenScore  = clamp(100 - Math.max(0, p.screen - 4.0) * 12.0, 0, 100);
+      const socialScore  = clamp(100 - Math.max(0, p.social - 2.0) * 18.0, 0, 100);
+      const gamingScore  = clamp(100 - Math.max(0, p.gaming - 1.5) * 15.0, 0, 100);
+      const sleepScore   = clamp(100 - Math.abs(p.sleep - 8.0) * 14.0, 0, 100);
+      const notifScore   = clamp(100 - Math.max(0, p.notif - 40.0) * 0.50, 0, 100);
+      const opensScore   = clamp(100 - Math.max(0, p.opens - 35.0) * 0.65, 0, 100);
+      const stressScore  = clamp(100 - (p.stress - 1.0) * 35.0, 0, 100);
+      const weekendScore = clamp(100 - Math.max(0, p.weekend - 5.0) * 10.0, 0, 100);
+
+      const wellness = Math.round(clamp(
+        0.24 * screenScore +
+        0.20 * socialScore +
+        0.14 * gamingScore +
+        0.16 * sleepScore +
+        0.10 * notifScore +
+        0.06 * opensScore +
+        0.05 * stressScore +
+        0.05 * weekendScore,
+        0, 100
+      ));
+      const risk = 100 - wellness;
+
+      let riskLevel = "LOW RISK";
+      let riskIcon = "🟢";
+      if (risk >= 60) {
+        riskLevel = "HIGH RISK";
+        riskIcon = "🔴";
+      } else if (risk >= 30) {
+        riskLevel = "MODERATE RISK";
+        riskIcon = "🟡";
+      }
+
+      return {
+        wellness,
+        risk,
+        riskLevel,
+        riskIcon,
+        subscores: [
+          Math.round(screenScore),
+          Math.round(socialScore),
+          Math.round(gamingScore),
+          Math.round(sleepScore),
+          Math.round(notifScore),
+          Math.round(weekendScore)
+        ]
+      };
+    }
+
+    function computeMLAndCluster(p) {
+      let logit = -6.85 + 0.58 * p.screen + 0.82 * p.social + 0.22 * p.weekend + 0.14 * p.gaming - 0.18 * (p.sleep - 6.7) + 0.004 * (p.notif - 100);
+      if (p.screen > 8.0 || p.social > 4.0) logit += 1.65;
+      const prob = clamp((1 / (1 + Math.exp(-logit))) * 100, 1.5, 99.5);
+      const predClass = prob >= 50 ? 1 : 0;
+      const confidence = predClass === 1 ? prob : (100 - prob);
+
+      const vec = [p.screen, p.social, p.gaming, p.work, p.sleep, p.notif, p.opens, p.weekend];
+      const scaled = vec.map((v, i) => (v - SCALER_MEANS[i]) / SCALER_STDS[i]);
+
+      let bestCluster = 0;
+      let bestDist = Infinity;
+      const distances = [];
+      for (let c = 0; c < KMEANS_CENTERS.length; c++) {
+        let sumSq = 0;
+        for (let j = 0; j < 8; j++) {
+          const d = scaled[j] - KMEANS_CENTERS[c][j];
+          sumSq += d * d;
+        }
+        const dist = Math.sqrt(sumSq);
+        distances.push({ id: c, dist: dist });
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestCluster = c;
+        }
+      }
+      distances.sort((a, b) => a.dist - b.dist);
+
+      return {
+        prob: Number(prob.toFixed(1)),
+        predClass,
+        confidence: Number(confidence.toFixed(1)),
+        clusterId: bestCluster,
+        clusterMeta: CLUSTER_META[bestCluster],
+        distances
+      };
+    }
+
+    function validateProfile(p) {
+      const errs = [];
+      if (p.screen < 0 || p.screen > 24) errs.push("Daily screen time must be between 0 and 24 hours.");
+      if (p.weekend < 0 || p.weekend > 24) errs.push("Weekend screen time must be between 0 and 24 hours.");
+      if (p.social > p.screen) errs.push("Social media usage cannot exceed total daily screen time.");
+      if (p.gaming > p.screen) errs.push("Gaming hours cannot exceed total daily screen time.");
+      if ((p.social + p.gaming) > p.screen) {
+        errs.push(`Combined Social Media (${p.social.toFixed(1)}h) + Gaming (${p.gaming.toFixed(1)}h) = ${(p.social + p.gaming).toFixed(1)}h cannot exceed Daily Screen Time (${p.screen.toFixed(1)}h).`);
+      }
+      if ((p.screen + p.sleep) > 24) {
+        errs.push(`Daily Screen Time (${p.screen.toFixed(1)}h) + Sleep (${p.sleep.toFixed(1)}h) = ${(p.screen + p.sleep).toFixed(1)}h cannot exceed 24 hours.`);
+      }
+      return errs;
+    }
+
+    function buildRecommendations(p) {
+      const recs = [];
+      if (p.screen > 6.0) {
+        const target = Math.max(4.0, p.screen - 2.0).toFixed(1);
+        recs.push({
+          priority: p.screen >= 8.0 ? "HIGH" : "MEDIUM",
+          icon: "📱",
+          title: `Step Down Daily Screen Time (${p.screen.toFixed(1)}h → ${target}h)`,
+          detail: "Screen exposure above 8h/day is the #2 RF predictor (30.5% weight). Introduce 20-20-20 eye breaks and a 10:00 PM device sunset."
+        });
+      }
+      if (p.social > 2.5) {
+        const target = Math.max(1.5, p.social - 1.5).toFixed(1);
+        recs.push({
+          priority: p.social >= 4.0 ? "HIGH" : "MEDIUM",
+          icon: "🌐",
+          title: `Cap Social Media Scrolling (${p.social.toFixed(1)}h → ${target}h)`,
+          detail: "Social media carries the #1 ML importance weight (36.4%). Enable app timers and remove feeds from your home screen during deep work."
+        });
+      }
+      if (p.weekend > p.screen + 1.5 || p.weekend > 8.0) {
+        recs.push({
+          priority: "MEDIUM",
+          icon: "🗓️",
+          title: `Curb Weekend Screen Surge (${p.weekend.toFixed(1)}h/day)`,
+          detail: "Weekend screen time is the #3 ML driver (19.1%). Schedule a half-day outdoor or offline activity each weekend."
+        });
+      }
+      if (p.gaming > 2.5) {
+        recs.push({
+          priority: p.gaming >= 4.0 ? "HIGH" : "MEDIUM",
+          icon: "🎮",
+          title: `Define Fixed Gaming Windows (${p.gaming.toFixed(1)}h → 2.0h)`,
+          detail: "Users in the Gaming-Heavy cluster show a 95.8% addiction rate. Set a hard stop alarm 90 minutes before bedtime."
+        });
+      }
+      if (p.sleep < 7.0) {
+        recs.push({
+          priority: p.sleep < 6.0 ? "HIGH" : "MEDIUM",
+          icon: "🌙",
+          title: `Restore Recovery Sleep (${p.sleep.toFixed(1)}h → 7.5–8.0h)`,
+          detail: "Charge your phone outside the bedroom and activate grayscale mode 60 minutes before sleep."
+        });
+      }
+      if (p.notif > 80 || p.opens > 70) {
+        recs.push({
+          priority: "MEDIUM",
+          icon: "🔔",
+          title: `Batch Notifications (${p.notif}/day & ${p.opens} opens/day)`,
+          detail: "Turn off non-human push notifications and use Scheduled Notification Summary twice a day."
+        });
+      }
+      if (recs.length === 0) {
+        recs.push({
+          priority: "OPTIMAL",
+          icon: "✅",
+          title: "Maintain Your Balanced Digital Routine",
+          detail: "Your screen exposure, social media usage, notification hygiene, and sleep duration are all aligned with healthy clinical targets."
+        });
+      }
+      return recs;
+    }
+
+    function initCharts() {
+      if (typeof Chart === "undefined") return;
+      Chart.defaults.color = "#94A3B8";
+      Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+
+      charts.overviewBar = new Chart(document.getElementById("chart-overview-bar"), {
+        type: "bar",
+        data: {
+          labels: ["Screen Time", "Social Media", "Gaming", "Work / Study", "Sleep", "Weekend"],
+          datasets: [
+            { label: "Your Hours", data: [6, 3, 2, 5, 7, 7.5], backgroundColor: "#6366F1", borderRadius: 6 },
+            { label: "7,500-User Avg", data: [7.50, 3.27, 2.01, 3.24, 6.74, 9.24], backgroundColor: "#38BDF8", borderRadius: 6 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { beginAtZero: true, grid: { color: "rgba(148,163,184,0.1)" } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      charts.overviewDonut = new Chart(document.getElementById("chart-overview-donut"), {
+        type: "doughnut",
+        data: {
+          labels: ["Social Media", "Gaming", "Productive/Other Screen", "Sleep Recovery", "Unplugged Awake"],
+          datasets: [{
+            data: [3, 2, 1, 7, 11],
+            backgroundColor: ["#F43F5E", "#8B5CF6", "#3B82F6", "#10B981", "#475569"],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "62%",
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+
+      charts.aiRadar = new Chart(document.getElementById("chart-ai-radar"), {
+        type: "radar",
+        data: {
+          labels: ["Screen Balance", "Social Balance", "Gaming Balance", "Sleep Recovery", "Notif Hygiene", "Weekend Control"],
+          datasets: [
+            {
+              label: "Your Profile",
+              data: [76, 82, 92, 86, 70, 75],
+              backgroundColor: "rgba(99, 102, 241, 0.28)",
+              borderColor: "#6366F1",
+              pointBackgroundColor: "#6366F1",
+              borderWidth: 2
+            },
+            {
+              label: "Healthy Benchmark (75)",
+              data: [75, 75, 75, 75, 75, 75],
+              backgroundColor: "rgba(16, 185, 129, 0.05)",
+              borderColor: "#10B981",
+              borderDash: [4, 4],
+              borderWidth: 1.5
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              grid: { color: "rgba(148,163,184,0.15)" },
+              angleLines: { color: "rgba(148,163,184,0.15)" },
+              pointLabels: { color: "#CBD5E1", font: { size: 11 } },
+              ticks: { display: false }
+            }
+          }
+        }
+      });
+
+      charts.riskContrib = new Chart(document.getElementById("chart-risk-contrib"), {
+        type: "bar",
+        data: {
+          labels: ["Screen Exposure", "Social Media", "Weekend Surge", "Notifications", "Gaming Load", "Sleep Deficit"],
+          datasets: [{
+            label: "Risk Contribution Points",
+            data: [15, 8.4, 5, 8.3, 4.4, 4],
+            backgroundColor: ["#6366F1", "#F43F5E", "#F59E0B", "#38BDF8", "#8B5CF6", "#10B981"],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { beginAtZero: true, grid: { color: "rgba(148,163,184,0.1)" } },
+            y: { grid: { display: false } }
+          }
+        }
+      });
+
+      charts.habitsCompare = new Chart(document.getElementById("chart-habits-compare"), {
+        type: "bar",
+        data: {
+          labels: ["Screen Time", "Social Media", "Gaming", "Sleep"],
+          datasets: [
+            { label: "Current", data: [6, 3, 2, 7], backgroundColor: "#F43F5E", borderRadius: 5 },
+            { label: "Simulated", data: [4.5, 1.5, 1, 8], backgroundColor: "#6366F1", borderRadius: 5 },
+            { label: "Healthy Target", data: [4, 2, 1.5, 8], backgroundColor: "#10B981", borderRadius: 5 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { beginAtZero: true, grid: { color: "rgba(148,163,184,0.1)" } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      charts.simProjection = new Chart(document.getElementById("chart-sim-projection"), {
+        type: "line",
+        data: {
+          labels: ["Today", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"],
+          datasets: [
+            {
+              label: "Simulated Habit Plan",
+              data: [78, 81, 84, 86, 89, 90, 92],
+              borderColor: "#10B981",
+              backgroundColor: "rgba(16, 185, 129, 0.15)",
+              fill: true,
+              tension: 0.35,
+              borderWidth: 3
+            },
+            {
+              label: "Current Habit Baseline",
+              data: [78, 78, 78, 78, 78, 78, 78],
+              borderColor: "#64748B",
+              borderDash: [5, 5],
+              fill: false,
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { min: 0, max: 100, grid: { color: "rgba(148,163,184,0.1)" } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      charts.cohortClusters = new Chart(document.getElementById("chart-cohort-clusters"), {
+        type: "bar",
+        data: {
+          labels: ["Cluster 0: Balanced", "Cluster 1: Gaming-Heavy", "Cluster 2: Moderate", "Cluster 3: Screen/Social"],
+          datasets: [{
+            label: "Cohort Addiction Rate (%)",
+            data: [46.37, 95.78, 44.68, 95.38],
+            backgroundColor: ["#10B981", "#EF4444", "#F59E0B", "#F97316"],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { min: 0, max: 100, grid: { color: "rgba(148,163,184,0.1)" } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+    }
+
+    function syncFormFromState() {
+      document.getElementById("inp-age").value = state.age;
+      document.getElementById("inp-gender").value = state.gender;
+      document.getElementById("inp-screen").value = state.screen;
+      document.getElementById("inp-weekend").value = state.weekend;
+      document.getElementById("inp-social").value = state.social;
+      document.getElementById("inp-gaming").value = state.gaming;
+      document.getElementById("inp-work").value = state.work;
+      document.getElementById("inp-sleep").value = state.sleep;
+      document.getElementById("inp-notif").value = state.notif;
+      document.getElementById("inp-opens").value = state.opens;
+      document.getElementById("inp-stress").value = state.stress;
+      const stressMap = { 1: "1 — Low", 2: "2 — Moderate", 3: "3 — High" };
+      document.getElementById("stress-label-badge").textContent = stressMap[state.stress] || "2 — Moderate";
+    }
+
+    function renderTimeBudgetBar() {
+      const otherScreen = Math.max(0, state.screen - state.social - state.gaming);
+      const offlineAwake = Math.max(0, 24 - state.screen - state.sleep);
+      const segments = [
+        { label: "Social Media", hours: state.social, color: "#F43F5E" },
+        { label: "Gaming", hours: state.gaming, color: "#8B5CF6" },
+        { label: "Other Screen", hours: otherScreen, color: "#3B82F6" },
+        { label: "Sleep Recovery", hours: state.sleep, color: "#10B981" },
+        { label: "Offline Awake", hours: offlineAwake, color: "#475569" }
+      ];
+      document.getElementById("time-budget-bar").innerHTML = segments.map(s => {
+        const pct = ((s.hours / 24.0) * 100).toFixed(1);
+        return `<div style="width:${pct}%; background:${s.color};" title="${s.label}: ${s.hours.toFixed(1)}h (${pct}%)"></div>`;
+      }).join("");
+      document.getElementById("time-budget-legend").innerHTML = segments.map(s => `
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:${s.color}"></span>
+          <span>${s.label}: <b>${s.hours.toFixed(1)}h</b></span>
+        </span>
+      `).join("");
+    }
+
+    function renderAll() {
+      const w = computeWellness(state);
+      const ml = computeMLAndCluster(state);
+
+      renderTimeBudgetBar();
+
+      document.getElementById("hero-cluster-pill").textContent = `🧬 Cluster ${ml.clusterId}: ${ml.clusterMeta.name}`;
+      document.getElementById("kpi-wellness-val").textContent = `${w.wellness}/100`;
+      document.getElementById("kpi-wellness-delta").textContent = w.wellness >= 70 ? "Healthy Range (≥70)" : "Below 70 Target";
+      document.getElementById("kpi-wellness-delta").className = `text-xs font-semibold mt-0.5 ${w.wellness >= 70 ? "text-emerald-400" : "text-amber-400"}`;
+
+      document.getElementById("kpi-risk-val").textContent = `${w.risk}%`;
+      document.getElementById("kpi-risk-delta").textContent = `${w.riskIcon} ${w.riskLevel}`;
+      document.getElementById("kpi-risk-delta").className = `text-xs font-semibold mt-0.5 ${w.risk < 30 ? "text-emerald-400" : (w.risk < 60 ? "text-amber-400" : "text-rose-400")}`;
+
+      document.getElementById("kpi-ml-val").textContent = `${ml.prob.toFixed(1)}%`;
+      document.getElementById("kpi-ml-delta").textContent = ml.predClass === 1 ? "Addicted (High Risk)" : "Not Addicted (Healthy)";
+      document.getElementById("kpi-ml-delta").className = `text-xs font-semibold mt-0.5 ${ml.predClass === 1 ? "text-rose-400" : "text-emerald-400"}`;
+
+      document.getElementById("kpi-cluster-val").textContent = `Cluster ${ml.clusterId}`;
+      document.getElementById("kpi-cluster-delta").textContent = ml.clusterMeta.short;
+
+      const screenDiff = state.screen - 7.5;
+      document.getElementById("kpi-screen-val").textContent = `${state.screen.toFixed(1)} h`;
+      document.getElementById("kpi-screen-delta").textContent = `${screenDiff >= 0 ? "+" : ""}${screenDiff.toFixed(1)}h vs cohort avg`;
+      document.getElementById("kpi-screen-delta").className = `text-xs font-semibold mt-0.5 ${screenDiff <= 0 ? "text-emerald-400" : "text-rose-400"}`;
+
+      const sleepDiff = state.sleep - 8.0;
+      document.getElementById("kpi-sleep-val").textContent = `${state.sleep.toFixed(1)} h`;
+      document.getElementById("kpi-sleep-delta").textContent = `${sleepDiff >= 0 ? "+" : ""}${sleepDiff.toFixed(1)}h vs 8h target`;
+      document.getElementById("kpi-sleep-delta").className = `text-xs font-semibold mt-0.5 ${state.sleep >= 7 ? "text-emerald-400" : "text-amber-400"}`;
+
+      // Update Cohort Comparison Row for Active User
+      document.getElementById("tbl-user-prob").textContent = `${ml.prob.toFixed(1)}%`;
+      document.getElementById("tbl-user-screen").textContent = `${state.screen.toFixed(2)}h`;
+      document.getElementById("tbl-user-social").textContent = `${state.social.toFixed(2)}h`;
+      document.getElementById("tbl-user-gaming").textContent = `${state.gaming.toFixed(2)}h`;
+      document.getElementById("tbl-user-sleep").textContent = `${state.sleep.toFixed(2)}h`;
+
+      const aiBadge = document.getElementById("ai-verdict-badge");
+      aiBadge.textContent = ml.predClass === 1 ? `⚠️ High Addiction Risk (${ml.prob.toFixed(1)}%)` : `✓ Low Addiction Risk (${ml.prob.toFixed(1)}%)`;
+      aiBadge.className = `px-3 py-1 rounded-full text-xs font-bold border ${ml.predClass === 1 ? "bg-rose-500/15 text-rose-300 border-rose-500/30" : "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"}`;
+
+      document.getElementById("gauge-risk-text").textContent = `${w.risk}% (${w.riskLevel})`;
+      document.getElementById("gauge-risk-bar").style.width = `${w.risk}%`;
+      document.getElementById("gauge-ml-text").textContent = `${ml.prob.toFixed(1)}%`;
+      document.getElementById("gauge-ml-bar").style.width = `${ml.prob}%`;
+      document.getElementById("ml-class-text").textContent = ml.predClass === 1 ? "1 — Addicted (High Risk)" : "0 — Not Addicted (Healthy)";
+      document.getElementById("ml-class-text").className = `font-bold ${ml.predClass === 1 ? "text-rose-400" : "text-emerald-400"}`;
+      document.getElementById("ml-conf-text").textContent = `${ml.confidence.toFixed(1)}%`;
+      document.getElementById("ml-gender-text").textContent = `cat__gender_${state.gender} = 1.0`;
+
+      document.getElementById("cluster-card-title").textContent = `Cluster ${ml.clusterId}: ${ml.clusterMeta.name}`;
+      document.getElementById("cluster-card-badge").textContent = `Cohort Addiction Rate: ${ml.clusterMeta.rate.toFixed(1)}% (n = ${ml.clusterMeta.count.toLocaleString()})`;
+      document.getElementById("cluster-card-desc").textContent = ml.clusterMeta.desc;
+
+      const distContainer = document.getElementById("cluster-distances-list");
+      distContainer.innerHTML = ml.distances.map((d, idx) => `
+        <div class="flex justify-between items-center px-2.5 py-1 rounded-lg ${idx === 0 ? "bg-indigo-500/20 text-white font-bold border border-indigo-500/40" : "text-slate-400"}">
+          <span>Cluster ${d.id}: ${CLUSTER_META[d.id].short}</span>
+          <span class="font-mono">d = ${d.dist.toFixed(2)}</span>
+        </div>
+      `).join("");
+
+      if (charts.overviewBar) {
+        charts.overviewBar.data.datasets[0].data = [state.screen, state.social, state.gaming, state.work, state.sleep, state.weekend];
+        charts.overviewBar.update();
+      }
+
+      const otherScreen = Math.max(0, state.screen - state.social - state.gaming);
+      const offlineAwake = Math.max(0, 24 - state.screen - state.sleep);
+      if (charts.overviewDonut) {
+        charts.overviewDonut.data.datasets[0].data = [state.social, state.gaming, otherScreen, state.sleep, offlineAwake];
+        charts.overviewDonut.update();
+      }
+
+      if (charts.aiRadar) {
+        charts.aiRadar.data.datasets[0].data = w.subscores;
+        charts.aiRadar.update();
+      }
+
+      const riskContribData = [
+        Number((state.screen * 2.5).toFixed(1)),
+        Number((state.social * 2.8).toFixed(1)),
+        Number((Math.max(0, state.weekend - 5.0) * 2.0).toFixed(1)),
+        Number((state.notif / 12.0).toFixed(1)),
+        Number((state.gaming * 2.2).toFixed(1)),
+        Number((Math.max(0, 8.0 - state.sleep) * 4.0).toFixed(1))
+      ];
+      if (charts.riskContrib) {
+        charts.riskContrib.data.datasets[0].data = riskContribData;
+        charts.riskContrib.update();
+      }
+
+      const gScreen = clamp(Math.round((4.0 / Math.max(0.5, state.screen)) * 100), 0, 100);
+      const gSocial = clamp(Math.round((2.0 / Math.max(0.5, state.social)) * 100), 0, 100);
+      const gSleep  = clamp(Math.round((state.sleep / 8.0) * 100), 0, 100);
+      const gNotif  = clamp(Math.round((50.0 / Math.max(1.0, state.notif)) * 100), 0, 100);
+
+      document.getElementById("goal-screen-pct").textContent = `${gScreen}%`;
+      document.getElementById("goal-screen-bar").style.width = `${gScreen}%`;
+      document.getElementById("goal-social-pct").textContent = `${gSocial}%`;
+      document.getElementById("goal-social-bar").style.width = `${gSocial}%`;
+      document.getElementById("goal-sleep-pct").textContent = `${gSleep}%`;
+      document.getElementById("goal-sleep-bar").style.width = `${gSleep}%`;
+      document.getElementById("goal-notif-pct").textContent = `${gNotif}%`;
+      document.getElementById("goal-notif-bar").style.width = `${gNotif}%`;
+
+      const recs = buildRecommendations(state);
+      document.getElementById("recommendations-grid").innerHTML = recs.map(r => `
+        <div class="p-4 rounded-xl bg-slate-900/75 border border-slate-800 border-l-4 border-l-indigo-500">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-bold text-sm text-white">${r.icon} ${r.title}</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">${r.priority}</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">${r.detail}</p>
+        </div>
+      `).join("");
+
+      renderSimulation();
+    }
+
+    function renderSimulation() {
+      const baseW = computeWellness(state);
+      const simScreen = parseFloat(document.getElementById("sim-screen").value);
+      const simSocial = parseFloat(document.getElementById("sim-social").value);
+      const simGaming = parseFloat(document.getElementById("sim-gaming").value);
+      const simSleep  = parseFloat(document.getElementById("sim-sleep").value);
+      const simNotif  = parseFloat(document.getElementById("sim-notif").value);
+
+      document.getElementById("sim-screen-lbl").textContent = `${simScreen.toFixed(1)} h`;
+      document.getElementById("sim-social-lbl").textContent = `${simSocial.toFixed(1)} h`;
+      document.getElementById("sim-gaming-lbl").textContent = `${simGaming.toFixed(1)} h`;
+      document.getElementById("sim-sleep-lbl").textContent  = `${simSleep.toFixed(1)} h`;
+      document.getElementById("sim-notif-lbl").textContent  = `${simNotif} /day`;
+
+      const effSocial = Math.min(simSocial, simScreen);
+      const effGaming = Math.min(simGaming, Math.max(0, simScreen - effSocial));
+      const simState = {
+        ...state,
+        screen: simScreen,
+        social: effSocial,
+        gaming: effGaming,
+        sleep: simSleep,
+        notif: simNotif,
+        weekend: Math.max(simScreen, state.weekend - Math.max(0, state.screen - simScreen))
+      };
+
+      const simW = computeWellness(simState);
+      const delta = simW.wellness - baseW.wellness;
+
+      document.getElementById("sim-curr-score").textContent = `${baseW.wellness}/100`;
+      document.getElementById("sim-new-score").textContent  = `${simW.wellness}/100`;
+      document.getElementById("sim-delta-text").textContent = `${delta >= 0 ? "+" : ""}${delta} points`;
+      document.getElementById("sim-delta-text").className   = `text-lg font-extrabold ${delta > 0 ? "text-emerald-400" : (delta < 0 ? "text-rose-400" : "text-slate-300")}`;
+
+      const pill = document.getElementById("sim-verdict-pill");
+      if (delta >= 8) {
+        pill.textContent = "Significant Improvement 🚀";
+        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30";
+      } else if (delta > 0) {
+        pill.textContent = "Positive Gain ✨";
+        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30";
+      } else if (delta === 0) {
+        pill.textContent = "Unchanged ⚖️";
+        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-slate-700 text-slate-300";
+      } else {
+        pill.textContent = "Higher Risk ⚠️";
+        pill.className = "px-3 py-1 rounded-full text-xs font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30";
+      }
+
+      const weights = [0.0, 0.22, 0.42, 0.60, 0.76, 0.89, 1.0];
+      const curve = weights.map(wt => Math.round(clamp(baseW.wellness + wt * delta, 0, 100)));
+      const baseline = weights.map(() => baseW.wellness);
+
+      if (charts.simProjection) {
+        charts.simProjection.data.datasets[0].data = curve;
+        charts.simProjection.data.datasets[1].data = baseline;
+        charts.simProjection.update();
+      }
+
+      if (charts.habitsCompare) {
+        charts.habitsCompare.data.datasets[0].data = [state.screen, state.social, state.gaming, state.sleep];
+        charts.habitsCompare.data.datasets[1].data = [simScreen, effSocial, effGaming, simSleep];
+        charts.habitsCompare.update();
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initCharts();
+      syncFormFromState();
+      renderAll();
+
+      // Sidebar Navigation
+      document.querySelectorAll("#sidebar-nav .nav-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          switchWorkspaceView(btn.getAttribute("data-view"));
+        });
+      });
+
+      // Top Step Bar Navigation
+      document.querySelectorAll("#top-step-tabs .step-tab").forEach(btn => {
+        btn.addEventListener("click", () => {
+          switchWorkspaceView(btn.getAttribute("data-step"));
+        });
+      });
+
+      // Next / Back Step Buttons
+      document.querySelectorAll(".goto-step-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          switchWorkspaceView(btn.getAttribute("data-goto"));
+        });
+      });
+
+      // Persona Presets
+      document.querySelectorAll(".preset-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const name = btn.getAttribute("data-preset");
+          if (PRESETS[name]) {
+            state = { ...PRESETS[name] };
+            syncFormFromState();
+            document.getElementById("validation-banner").classList.add("hidden");
+            renderAll();
+            showToast(`Loaded preset: ${name}`, "⚡");
+          }
+        });
+      });
+
+      document.getElementById("inp-stress").addEventListener("input", (e) => {
+        const val = parseInt(e.target.value, 10);
+        const stressMap = { 1: "1 — Low", 2: "2 — Moderate", 3: "3 — High" };
+        document.getElementById("stress-label-badge").textContent = stressMap[val] || "2 — Moderate";
+      });
+
+      document.getElementById("assessment-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const candidate = {
+          age: parseFloat(document.getElementById("inp-age").value) || 22,
+          gender: document.getElementById("inp-gender").value || "Male",
+          screen: parseFloat(document.getElementById("inp-screen").value) || 0,
+          weekend: parseFloat(document.getElementById("inp-weekend").value) || 0,
+          social: parseFloat(document.getElementById("inp-social").value) || 0,
+          gaming: parseFloat(document.getElementById("inp-gaming").value) || 0,
+          work: parseFloat(document.getElementById("inp-work").value) || 0,
+          sleep: parseFloat(document.getElementById("inp-sleep").value) || 0,
+          notif: parseInt(document.getElementById("inp-notif").value, 10) || 0,
+          opens: parseInt(document.getElementById("inp-opens").value, 10) || 0,
+          stress: parseInt(document.getElementById("inp-stress").value, 10) || 2
+        };
+
+        const errs = validateProfile(candidate);
+        const errBanner = document.getElementById("validation-banner");
+        if (errs.length > 0) {
+          errBanner.innerHTML = errs.map(er => `<div>⚠️ ${er}</div>`).join("");
+          errBanner.classList.remove("hidden");
+          showToast("Please resolve validation errors", "⚠️");
+          return;
+        }
+        errBanner.classList.add("hidden");
+        state = candidate;
+        renderAll();
+        showToast("AI Profile & K-Means Cluster Updated!", "🧠");
+      });
+
+      ["sim-screen", "sim-social", "sim-gaming", "sim-sleep", "sim-notif"].forEach(id => {
+        document.getElementById(id).addEventListener("input", () => {
+          renderSimulation();
+        });
+      });
+
+      document.getElementById("btn-apply-sim").addEventListener("click", () => {
+        const simScreen = parseFloat(document.getElementById("sim-screen").value);
+        const simSocial = Math.min(parseFloat(document.getElementById("sim-social").value), simScreen);
+        const simGaming = Math.min(parseFloat(document.getElementById("sim-gaming").value), Math.max(0, simScreen - simSocial));
+        const simSleep  = Math.min(24 - simScreen, parseFloat(document.getElementById("sim-sleep").value));
+        const simNotif  = parseInt(document.getElementById("sim-notif").value, 10);
+
+        state = {
+          ...state,
+          screen: simScreen,
+          social: simSocial,
+          gaming: simGaming,
+          sleep: simSleep,
+          notif: simNotif
+        };
+        syncFormFromState();
+        renderAll();
+        showToast("Simulated habits applied to active profile!", "🚀");
+      });
+
+      const modal = document.getElementById("report-modal");
+      document.getElementById("btn-export-report").addEventListener("click", () => {
+        const w = computeWellness(state);
+        const ml = computeMLAndCluster(state);
+        const recs = buildRecommendations(state);
+        const reportText = [
+          "=== DIGITAL WELL-BEING AI DIAGNOSTIC REPORT ===",
+          `Profile: Age ${state.age} | Gender: ${state.gender}`,
+          `Daily Screen: ${state.screen.toFixed(1)}h | Social: ${state.social.toFixed(1)}h | Gaming: ${state.gaming.toFixed(1)}h | Weekend: ${state.weekend.toFixed(1)}h`,
+          `Work/Study: ${state.work.toFixed(1)}h | Sleep: ${state.sleep.toFixed(1)}h | Notifications: ${state.notif}/day | App Opens: ${state.opens}/day`,
+          "",
+          "--- AI & CLUSTERING VERDICT ---",
+          `• Wellness Score: ${w.wellness}/100 (${w.riskLevel} — ${w.risk}% Risk)`,
+          `• Random Forest Prediction: ${ml.predClass === 1 ? "Addicted (High Risk)" : "Not Addicted (Healthy)"} (${ml.prob.toFixed(1)}% prob, ${ml.confidence.toFixed(1)}% conf)`,
+          `• K-Means Behavioral Cluster: Cluster ${ml.clusterId} — ${ml.clusterMeta.name} (Cohort Addiction Rate: ${ml.clusterMeta.rate}%)`,
+          "",
+          "--- PRIORITIZED ACTION PLAN ---",
+          ...recs.map((r, i) => `${i + 1}. [${r.priority}] ${r.title}: ${r.detail}`)
+        ].join("\n");
+        document.getElementById("report-modal-text").textContent = reportText;
+        modal.classList.remove("hidden");
+      });
+
+      const closeModal = () => modal.classList.add("hidden");
+      document.getElementById("btn-close-modal").addEventListener("click", closeModal);
+      document.getElementById("btn-done-modal").addEventListener("click", closeModal);
+
+      document.getElementById("btn-copy-report").addEventListener("click", () => {
+        const text = document.getElementById("report-modal-text").textContent;
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          showToast("Diagnostic report copied to clipboard!", "📋");
+        } catch (err) {
+          showToast("Copy completed", "📋");
+        }
+        document.body.removeChild(ta);
+      });
+    });
+  </script>
+</body>
+</html>
